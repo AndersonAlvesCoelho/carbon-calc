@@ -61,7 +61,7 @@ interface StepContextProps {
 }
 
 const StepContext = createContext<StepContextProps>({
-  breadcrumbs: 1,
+  breadcrumbs: 0,
   errorFormAnimation: false,
   dataForm: {},
 
@@ -77,7 +77,7 @@ interface Props {
 function StepContextProvider({ children }: Props) {
   const [dataForm, setDataForm] = useState<DataFormsProps>({});
 
-  const [breadcrumbs, setBreadcrumbs] = useState<number>(1);
+  const [breadcrumbs, setBreadcrumbs] = useState<number>(0);
   const [errorFormAnimation, setErrorFormAnimation] = useState<boolean>(false);
 
   useEffect(() => {

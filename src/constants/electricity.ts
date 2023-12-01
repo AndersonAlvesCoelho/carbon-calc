@@ -1,10 +1,10 @@
 export const OPTIONS_ELECTRICITY = [
-  { label: 'Renovável (Solar)', value: 0 },
-  { label: 'Renovável (Eólica)', value: 0 },
-  { label: 'Renovável (Hidrelétrica)', value: 0 },
-  { label: 'Gás Natural', value: 0.4 },
-  { label: 'Carvão', value: 1.0 }, // Utilize um valor médio, pode variar
-  { label: 'Nuclear', value: 0.05 },
-  { label: 'Óleo Combustível', value: 0.3 },
-  { label: 'Biomassa', value: 0.15 } // Valor médio, pode variar
+  { name: "general", label: "Geral", value: 0.4 },
+  // { name: "renewable", label: "Renovável", value: 0.05 },
+  { name: "naturalGas", label: "Gás natural", value: 0.2 },
+  { name: "coal", label: "Carvão", value: 0.9 },
+  { name: "nuclear", label: "Nuclear", value: 0.01 },
+  { name: "fuelOil", label: "Oleo combustivel", value: 0.7 },
+  { name: "biomass", label: "Biomassa", value: 0.2 },
+  { name: "heatingCooling", label: "Aquecimento resfriamento", value: 0.25 },
 ];

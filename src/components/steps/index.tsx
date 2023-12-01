@@ -1,26 +1,25 @@
-"use client"
+"use client";
 
-import { useStepContext } from "@/context/breadcrumbs"
-import ElectricityStep from "./Electricity"
-import TransportStep from "./Transport"
-
+import { useStepContext } from "@/context/stepContext";
+import EatingHabitsStep from "./EatingHabits";
+import ElectricityStep from "./Electricity";
+import EndStep from "./End";
+import StartStep from "./Start";
+import TransportStep from "./Transport";
 
 export default function Steps() {
-
-  const { breadcrumbs } = useStepContext()
+  const { breadcrumbs, dataForm } = useStepContext();
 
   switch (breadcrumbs) {
     case 1:
-      return (
-        <ElectricityStep />
-      )
+      return <TransportStep />;
     case 2:
-      return (
-        <TransportStep />
-      )
+      return <ElectricityStep />;
+    case 3:
+      return <EatingHabitsStep />;
+    case 4:
+      return <EndStep />;
     default:
-      return (
-        <h1>Hello Word</h1>
-      )
+      return <StartStep />;
   }
 }

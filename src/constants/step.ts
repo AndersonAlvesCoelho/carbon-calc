@@ -1,18 +1,17 @@
 export const STEPS = [
   {
     number: 1,
-    type: 'electricity',
-    name: 'Eletricidade'
+    type: "transport",
+    name: "Transporte",
   },
   {
     number: 2,
-    type: 'transport',
-    name: 'Transporte'
+    type: "electricity",
+    name: "Eletricidade",
   },
   {
     number: 3,
-    type: 'project',
-    name: 'Projeto'
+    type: "eatingHabits",
+    name: "Hábitos Alimentares",
   },
-
-]
+];

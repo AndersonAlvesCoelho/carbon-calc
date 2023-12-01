@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <div
-      className={`p-8 border rounded flex flex-col w-3/5 gap-8 
+      className={`m-8 p-8 border rounded flex flex-col w-3/5 gap-8 
     ${errorFormAnimation && "animate-waving-hand border-red-500"}`}
     >
       <Breadcrumbs />

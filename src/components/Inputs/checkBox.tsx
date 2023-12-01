@@ -1,21 +1,22 @@
 import * as React from "react";
-import { Control, Controller } from "react-hook-form";
+import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
   htmlFor: string;
-  control: Control;
   errors: boolean;
 }
 
-export default function Checkbox({
+export default function Checkbox<FormType extends FieldValues>({
   label,
   name,
   errors,
   control,
+  onChange,
+  value,
   ...props
-}: CheckboxProps) {
+}: CheckboxProps & UseControllerProps<FormType>) {
   return (
     <Controller
       control={control}

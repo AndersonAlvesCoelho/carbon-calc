@@ -10,30 +10,30 @@ import {
 } from "react";
 
 interface TransportCo2Props {
-  checkbox1: boolean | undefined;
-  checkbox2: boolean | undefined;
-  checkbox3: boolean | undefined;
+  checkbox1: boolean;
+  checkbox2: boolean;
+  checkbox3: boolean;
   busKm: number;
   carKm: number;
   efficiencyKm: number;
 }
 
 interface ElectricityCo2Props {
-  biomass: boolean | undefined;
+  biomass: boolean;
   biomassInput?: string;
-  coal: boolean | undefined;
+  coal: boolean;
   coalInput?: string;
-  fuelOil: boolean | undefined;
+  fuelOil: boolean;
   fuelOilInput?: string;
-  general: boolean | undefined;
+  general: boolean;
   generalInput?: string;
-  heatingCooling: boolean | undefined;
+  heatingCooling: boolean;
   heatingCoolingInput?: string;
-  naturalGas: boolean | undefined;
+  naturalGas: boolean;
   naturalGasInput?: string;
-  nuclear: boolean | undefined;
+  nuclear: boolean;
   nuclearInput?: string;
-  renewable: boolean | undefined;
+  renewable: boolean;
   renewableInput?: string;
 }
 

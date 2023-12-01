@@ -25,9 +25,9 @@ export default function Breadcrumbs() {
             key={index}
             className="flex justify-center items-center gap-2 hover:scale-105 transition duration-700 ease-in-out"
           >
-            <a href="#" className="flex justify-center items-center gap-2">
+            <div className="flex flex-col lg:flex-row justify-center items-center gap-2">
               <div
-                className={`flex items-center justify-center h-12 w-12 rounded-full ${
+                className={`flex items-center justify-center h-8 w-8 md:h-12 md:w-12 rounded-full ${
                   breadcrumbs === item.number
                     ? "bg-purple-700 text-white"
                     : "bg-gray-100 text-gray-300"
@@ -36,7 +36,7 @@ export default function Breadcrumbs() {
                 <span className="text-xl font-bold">{item.number}</span>
               </div>
               <span
-                className={`font-bold text-base ${
+                className={`font-bold text-xs md:text-base ${
                   breadcrumbs === item.number
                     ? "text-gray-800"
                     : "text-gray-300"
@@ -44,9 +44,9 @@ export default function Breadcrumbs() {
               >
                 {item.name}
               </span>
-            </a>
+            </div>
             {STEPS.length !== index + 1 && (
-              <ChevronRightIcon className="h-6 w-6" />
+              <ChevronRightIcon className="h-6 w-6 hidden lg:block" />
             )}
           </div>
         ))}

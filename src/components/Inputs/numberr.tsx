@@ -1,24 +1,24 @@
 import * as React from "react";
-import { Control, Controller } from "react-hook-form";
+import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
   htmlFor: string;
-  control: Control;
   errors: string | undefined;
 }
 
-export default function InputNumber({
+export default function InputNumber<FormType extends FieldValues>({
   label,
   name,
   errors,
   control,
   ...props
-}: InputProps) {
+}: InputProps & UseControllerProps<FormType>) {
   return (
     <Controller
       control={control}
+      name={name}
       render={({ field: { onChange, value } }) => (
         <div className="flex flex-col gap-1 w-full ">
           <label className=" text-gray-800 text-base font-bold" htmlFor={name}>
@@ -35,7 +35,6 @@ export default function InputNumber({
           <span className="text-red-500 text-sm"> {errors}</span>
         </div>
       )}
-      name={name}
     />
   );
 }

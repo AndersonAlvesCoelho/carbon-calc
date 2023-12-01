@@ -18,16 +18,16 @@ export default function TransportStep() {
 
   const FormSchema = z
     .object({
-      checkbox1: z.boolean().optional(),
-      checkbox2: z.boolean().optional(),
-      checkbox3: z.boolean().optional(),
-      carKm: z.number().optional(),
-      efficiencyKm: z.number().optional(),
-      busKm: z.number().optional(),
+      checkbox1: z.boolean().default(false),
+      checkbox2: z.boolean().default(false),
+      checkbox3: z.boolean().default(false),
+      carKm: z.number().default(0),
+      efficiencyKm: z.number().default(0),
+      busKm: z.number().default(0),
     })
     .refine((data) => data.checkbox1 || data.checkbox2 || data.checkbox3, {
-      message: "* Pelo menos um checkbox deve ser selecionado",
-      path: ["checkbox"],
+      message: "* Pelo menos um checkbox1 deve ser selecionado",
+      path: ["checkbox1"],
     })
     .refine((data) => !data.checkbox1 || data.carKm, {
       message: "* A distância percorrida é obrigatória",
@@ -52,20 +52,9 @@ export default function TransportStep() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    const { busKm, carKm, checkbox1, checkbox2, checkbox3, efficiencyKm } =
-      data;
-    const transportCo2 = {
-      busKm: busKm ?? 0,
-      carKm: carKm ?? 0,
-      checkbox1: checkbox1 ?? false,
-      checkbox2: checkbox2 ?? false,
-      checkbox3: checkbox3 ?? false,
-      efficiencyKm: efficiencyKm ?? 0,
-    };
-
     setBreadcrumbs(1 + breadcrumbs);
     setErrorFormAnimation(false);
-    setDataForm({ transportCo2 });
+    setDataForm({ transportCo2: data });
   }
 
   function handleErrorFormAnimation() {
@@ -78,10 +67,10 @@ export default function TransportStep() {
         Qual meio de transporte você utiliza no seu dia a dia?
       </p>
 
-      <small className="text-red-500 -mt-4">{errors?.checkbox?.message}</small>
+      <small className="text-red-500 -mt-4">{errors?.checkbox1?.message}</small>
 
       <Checkbox
-        errors={Boolean(errors?.checkbox?.message)}
+        errors={Boolean(errors?.checkbox1?.message)}
         control={control}
         htmlFor="checkbox1"
         name="checkbox1"
@@ -110,7 +99,7 @@ export default function TransportStep() {
       )}
 
       <Checkbox
-        errors={Boolean(errors?.checkbox?.message)}
+        errors={Boolean(errors?.checkbox1?.message)}
         control={control}
         htmlFor="checkbox2"
         name="checkbox2"
@@ -129,7 +118,7 @@ export default function TransportStep() {
       )}
 
       <Checkbox
-        errors={Boolean(errors?.checkbox?.message)}
+        errors={Boolean(errors?.checkbox1?.message)}
         control={control}
         htmlFor="checkbox3"
         name="checkbox3"

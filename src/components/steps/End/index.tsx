@@ -36,16 +36,24 @@ export default function EndStep() {
 
   const { eatingHabitsCo2, electricityCo2, transportCo2 } = dataForm;
 
+  useEffect(() => {
+    setTimeout(() => {
+      setCompleted(true);
+    }, 1000);
+  }, []);
+
+  if (!eatingHabitsCo2 || !electricityCo2 || !transportCo2) return;
+
+  const carKm =
+    (transportCo2.carKm / transportCo2?.efficiencyKm) * emissionFactor.carKm ||
+    0;
   const transportResult =
-    (transportCo2?.busKm / transportCo2?.efficiencyKm) * emissionFactor.carKm +
-      transportCo2?.busKm * emissionFactor.busKm || 0;
+    carKm + transportCo2?.busKm * emissionFactor.busKm || 0;
 
   let electricityResult = 0;
   OPTIONS_ELECTRICITY.forEach((option) => {
     const inputKey = option.name + "Input";
-    if (electricityCo2[option.name] && electricityCo2[inputKey]) {
-      electricityResult += electricityCo2[inputKey] * option.value;
-    }
+    electricityResult += (electricityCo2 as any)[inputKey] * option.value;
   });
 
   const eatingHabitsResult =
@@ -53,12 +61,6 @@ export default function EndStep() {
     eatingHabitsCo2?.vegetables * emissionFactor.vegetables;
 
   const result = transportResult + electricityResult + eatingHabitsResult;
-
-  useEffect(() => {
-    setTimeout(() => {
-      setCompleted(true);
-    }, 1000);
-  }, []);
 
   return (
     <div className="flex flex-col gap-8">

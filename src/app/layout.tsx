@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StepContextProvider>
-          <main className="flex items-center justify-center h-screen">
+          <main className="m-2 flex items-center justify-center h-screen">
             {children}
           </main>
         </StepContextProvider>

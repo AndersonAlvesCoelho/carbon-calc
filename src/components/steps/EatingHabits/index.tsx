@@ -13,19 +13,24 @@ import Button from "@/components/Button";
 import { Checkbox, InputNumber } from "@/components/Inputs";
 
 export default function EatingHabitsStep() {
-  const { breadcrumbs, setBreadcrumbs, setErrorFormAnimation, setDataForm } =
-    useStepContext();
+  const {
+    dataForm,
+    breadcrumbs,
+    setBreadcrumbs,
+    setErrorFormAnimation,
+    setDataForm,
+  } = useStepContext();
 
   const FormSchema = z
     .object({
-      checkbox1: z.boolean().optional(),
-      checkbox2: z.boolean().optional(),
-      meat: z.number().optional(),
-      vegetables: z.number().optional(),
+      checkbox1: z.boolean().default(false),
+      checkbox2: z.boolean().default(false),
+      meat: z.number().default(0),
+      vegetables: z.number().default(0),
     })
     .refine((data) => data.checkbox1 || data.checkbox2, {
       message: "* Pelo menos um checkbox deve ser selecionado",
-      path: ["checkbox"],
+      path: ["checkbox1"],
     })
     .refine((data) => !data.checkbox1 || data.meat, {
       message: "* Esse campo é obrigatória",
@@ -46,15 +51,16 @@ export default function EatingHabitsStep() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    const eatingHabitsCo2 = {
-      checkbox1: data.checkbox1 ?? false,
-      checkbox2: data.checkbox2 ?? false,
-      meat: data.meat ?? 0,
-      vegetables: data.vegetables ?? 0,
-    };
     setBreadcrumbs(1 + breadcrumbs);
     setErrorFormAnimation(false);
-    setDataForm((prevDataForm) => ({ ...prevDataForm, eatingHabitsCo2 }));
+
+    const result = {
+      electricityCo2: dataForm.electricityCo2,
+      transportCo2: dataForm.transportCo2,
+      eatingHabitsCo2: data,
+    };
+
+    setDataForm(result);
   }
 
   function handleErrorFormAnimation() {
@@ -67,10 +73,10 @@ export default function EatingHabitsStep() {
         Qual é a quantidade mensal de kg?
       </p>
 
-      <small className="text-red-500 -mt-4">{errors?.checkbox?.message}</small>
+      <small className="text-red-500 -mt-4">{errors?.checkbox1?.message}</small>
 
       <Checkbox
-        errors={Boolean(errors?.checkbox?.message)}
+        errors={Boolean(errors?.checkbox1?.message)}
         control={control}
         htmlFor="checkbox1"
         name="checkbox1"
@@ -89,7 +95,7 @@ export default function EatingHabitsStep() {
       )}
 
       <Checkbox
-        errors={Boolean(errors?.checkbox?.message)}
+        errors={Boolean(errors?.checkbox1?.message)}
         control={control}
         htmlFor="checkbox2"
         name="checkbox2"

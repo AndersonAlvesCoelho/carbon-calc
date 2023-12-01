@@ -8,7 +8,7 @@ import StartStep from "./Start";
 import TransportStep from "./Transport";
 
 export default function Steps() {
-  const { breadcrumbs, dataForm } = useStepContext();
+  const { breadcrumbs } = useStepContext();
 
   switch (breadcrumbs) {
     case 1:

@@ -14,17 +14,22 @@ import Button from "@/components/Button";
 import { CheckboxDropdown, InputNumber } from "@/components/Inputs";
 
 export default function ElectricityStep() {
-  const { breadcrumbs, setBreadcrumbs, setErrorFormAnimation, setDataForm } =
-    useStepContext();
+  const {
+    dataForm,
+    breadcrumbs,
+    setBreadcrumbs,
+    setErrorFormAnimation,
+    setDataForm,
+  } = useStepContext();
 
   const schemaCheckBoxDynamic = Object.fromEntries(
-    OPTIONS_ELECTRICITY.map((item) => [item.name, z.boolean().optional()])
+    OPTIONS_ELECTRICITY.map((item) => [item.name, z.boolean().default(false)])
   );
 
   const schemaInputDynamic = Object.fromEntries(
     OPTIONS_ELECTRICITY.map((item) => [
       item.name + "Input",
-      z.number().optional(),
+      z.number().default(0),
     ])
   );
 
@@ -66,7 +71,6 @@ export default function ElectricityStep() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log("data ", data);
     const checkBox = Object.keys(schemaCheckBoxDynamic).map((key) => {
       return { [key]: watch(key) ?? false };
     });
@@ -77,14 +81,14 @@ export default function ElectricityStep() {
     });
     const inputResult = Object.assign({}, ...inputs);
 
-    const electricityCo2 = { ...checkBoxResult, ...inputResult };
+    const result = {
+      electricityCo2: { ...checkBoxResult, ...inputResult },
+      transportCo2: dataForm.transportCo2,
+    };
 
     setBreadcrumbs(1 + breadcrumbs);
     setErrorFormAnimation(false);
-    setDataForm((prevDataForm) => ({
-      ...prevDataForm,
-      electricityCo2,
-    }));
+    setDataForm(result);
   }
 
   function handleErrorFormAnimation() {
@@ -106,8 +110,6 @@ export default function ElectricityStep() {
           errors={Boolean(errors?.checkbox?.message)}
           control={control}
           htmlFor="checkbox1"
-          name="checkbox1"
-          label="Carro/Moto"
         />
 
         {Object.keys(schemaInputDynamic).map((key) => {
